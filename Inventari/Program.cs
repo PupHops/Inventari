@@ -1,10 +1,12 @@
 ﻿using Inventari.Classes;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
+
 using static System.Net.Mime.MediaTypeNames;
 
 namespace Inventari
@@ -15,6 +17,9 @@ namespace Inventari
         {
             Player player = new Player();
             ListItem(player);
+            ListItem(player);
+
+
             //SortingName(player);
             //DisplayInventory(player);
             //SearchItem(player);
@@ -33,71 +38,75 @@ namespace Inventari
 
         static public void AddItem(Player player)
         {
-            Item newItem = new Item();
-            Console.WriteLine("Что вы хотите добваить?");
-            Console.WriteLine("1. Оружие");
-            Console.WriteLine("2. Броню");
-            Console.WriteLine("3. Другое");
-            int i;
 
-            while (true)
+            if (player.Inventory.Count < 10)
             {
-                i = GetInput();
-                if (i >= 1 && i <= 3)
-                    break;
+                Item newItem = new Item();
+                Console.WriteLine("Что вы хотите добваить?");
+                Console.WriteLine("1. Оружие");
+                Console.WriteLine("2. Броню");
+                Console.WriteLine("3. Другое");
+                int i;
 
-                Console.WriteLine("Неправильный выбор. Пожалуйста, выберите 1, 2 или 3.");
+                while (true)
+                {
+                    i = GetInput();
+                    if (i >= 1 && i <= 3)
+                        break;
+
+                    Console.WriteLine("Неправильный выбор. Пожалуйста, выберите 1, 2 или 3.");
+                }
+                if (i == 1)
+                {
+                    Console.WriteLine("Введите название:");
+                    string name = Console.ReadLine();
+
+                    Console.WriteLine("Введите урон:");
+                    int damage = GetInput();
+
+                    Console.WriteLine("Введите цену:");
+                    int price = GetInput();
+
+                    Console.WriteLine("Введите вес:");
+                    double weight = GetDoubleInput();
+
+                    newItem = new Weapon { Name = name, Price = price, Weitght = weight, Damage = damage };
+
+
+                }
+                else if (i == 2)
+                {
+                    Console.WriteLine("Введите название:");
+                    string name = Console.ReadLine();
+
+                    Console.WriteLine("Введите защиту:");
+                    int defence = GetInput();
+
+                    Console.WriteLine("Введите цену:");
+                    int price = GetInput();
+
+                    Console.WriteLine("Введите вес:");
+                    double weight = GetDoubleInput();
+
+                    newItem = new Armor { Name = name, Price = price, Weitght = weight, Defence = defence };
+
+                }
+                else if (i == 3)
+                {
+                    Console.WriteLine("Введите название:");
+                    string name = Console.ReadLine();
+
+                    Console.WriteLine("Введите цену:");
+                    int price = GetInput();
+
+                    Console.WriteLine("Введите вес:");
+                    double weight = GetDoubleInput();
+                    newItem = new Item { Name = name, Price = price, Weitght = weight };
+
+                }
+                player.Inventory.Add(newItem);
             }
-            if (i == 1)
-            {
-                Console.WriteLine("Введите название:");
-                string name = Console.ReadLine();
-
-                Console.WriteLine("Введите урон:");
-                int damage = GetInput();
-
-                Console.WriteLine("Введите цену:");
-                int price = GetInput();
-
-                Console.WriteLine("Введите вес:");
-                double weight = GetDoubleInput();
-
-                newItem = new Weapon { Name = name, Price = price, Weitght = weight, Damage = damage };
-
-
-            }
-            else if (i == 2)
-            {
-                Console.WriteLine("Введите название:");
-                string name = Console.ReadLine();
-
-                Console.WriteLine("Введите защиту:");
-                int defence = GetInput();
-
-                Console.WriteLine("Введите цену:");
-                int price = GetInput();
-
-                Console.WriteLine("Введите вес:");
-                double weight = GetDoubleInput();
-
-                newItem = new Armor { Name = name, Price = price, Weitght = weight, Defence = defence };
-
-            }
-            else if (i == 3)
-            {
-                Console.WriteLine("Введите название:");
-                string name = Console.ReadLine();
-
-                Console.WriteLine("Введите цену:");
-                int price = GetInput();
-
-                Console.WriteLine("Введите вес:");
-                double weight = GetDoubleInput();
-                newItem = new Item { Name = name, Price = price, Weitght = weight };
-
-            }
-            player.Inventory.Add(newItem);
-
+            else { Console.WriteLine("Инвентарь переполнен"); }
         }
         static public void ListItem(Player player)
         {
@@ -128,11 +137,6 @@ namespace Inventari
 
             DisplayInventory(player1);
         }
-        //static public void SearchDisplay(Player player)
-        //{
-        //    Console.WriteLine("Найденные поля:");
-        //    Console.WriteLine($"Название - {player.Inventory.}");
-        //}
 
         static public void ChangeEquipment(Player player)
         {
@@ -370,7 +374,7 @@ namespace Inventari
                 player1.Inventory = sortedInventory;
                 DisplayInventory(player1);
             }
-          
+
         }
 
     }

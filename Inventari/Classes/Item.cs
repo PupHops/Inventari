@@ -12,5 +12,6 @@ namespace Inventari.Classes
         public int Price { get; set; }
         public double Weitght { get; set; }
 
+
     }
 }

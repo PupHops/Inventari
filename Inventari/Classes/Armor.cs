@@ -9,5 +9,6 @@ namespace Inventari.Classes
     internal class Armor : Item
     {
         public int Defence {  get; set; }
+
     }
 }

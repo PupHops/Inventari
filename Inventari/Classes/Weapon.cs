@@ -9,5 +9,6 @@ namespace Inventari.Classes
     internal class Weapon : Item
     {
         public int Damage { get; set; }
+
     }
 }
